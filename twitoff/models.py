@@ -17,12 +17,10 @@ class User(DB.Model):
     username = DB.Column(DB.String, nullable=False)
     # Tweets list is created by the .relationships and backref in the Tweets class
     # tweets = []
-
+    newest_tweet_id = DB.Column(DB.BigInteger)
 
 
 class Tweet(DB.Model):
-
-
     #ID Column Schema
     id = DB.Column(DB.BigInteger, primary_key=True, nullable=False)
     # Text Column Schema
@@ -33,3 +31,5 @@ class Tweet(DB.Model):
     # This will automatically create the one-to-many relationship, but also add a new attribute
     # onto the 'User' called 'tweets' which will be a list of all of the user tweets
     user = DB.relationship("User", backref=DB.backref('tweets'), lazy=True)
+    # Word Embeddings Vector Storage (vect for short)
+    vect = DB.Column(DB.PickleType, nullable=False)
